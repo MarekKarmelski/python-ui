@@ -100,30 +100,43 @@ class BmiUi:
                 raise Exception('Height must be an number value!')
             if height <= 0:
                 raise Exception('Height must be bigger then 0!')
+            an_type = cb_type.get()
+            if an_type == 'HUMAN':
+                bmi_label.configure(text=an_type)
+                bmi = BMI(weight, height)
+                calculated_bmi = str(round(bmi.get_bmi(), 2))
+                bmi_label.configure(text=calculated_bmi)
+                bmi_norm = bmi.norm()
+                if bmi_norm == -1:
+                    norm_label.configure(text='You are underweight!', bg='#ffcc00')
+                elif bmi_norm == 0:
+                    norm_label.configure(text='You have a healthy weight!', bg='#00cc00')
+                elif bmi_norm == 1:
+                    norm_label.configure(text='You are overweight!', bg='#e60000')
+            elif an_type == 'DOG':
+                bmi = DogBMI(weight, height)
+                calculated_bmi = str(round(bmi.get_bmi(), 2))
+                bmi_label.configure(text=calculated_bmi)
+                bmi_norm = bmi.norm()
+                if bmi_norm == -1:
+                    norm_label.configure(text='You are underweight!', bg='#ffcc00')
+                elif bmi_norm == 0:
+                    norm_label.configure(text='You have a healthy weight!', bg='#00cc00')
+                elif bmi_norm == 1:
+                    norm_label.configure(text='You are overweight!', bg='#e60000')
+            elif an_type == 'CAT':
+                bmi = CatBMI(weight, height)
+                calculated_bmi = str(round(bmi.get_bmi(), 2))
+                bmi_label.configure(text=calculated_bmi)
+                bmi_norm = bmi.norm()
+                if bmi_norm == -1:
+                    norm_label.configure(text='You are underweight!', bg='#ffcc00')
+                elif bmi_norm == 0:
+                    norm_label.configure(text='You have a healthy weight!', bg='#00cc00')
+                elif bmi_norm == 1:
+                    norm_label.configure(text='You are overweight!', bg='#e60000')
         except Exception as e:
             messagebox.showerror('Error', e)
-
-        an_type = cb_type.get()
-        if an_type == 'HUMAN':
-            bmi_label.configure(text=an_type)
-            bmi = BMI(weight, height)
-            calculated_bmi = str(round(bmi.get_bmi(), 2))
-            bmi_label.configure(text=calculated_bmi)
-            bmi_norm = bmi.norm()
-            if bmi_norm == -1:
-                norm_label.configure(text='You are underweight!', bg='#ffcc00')
-            elif bmi_norm == 0:
-                norm_label.configure(text='You have a healthy weight!', bg='#00cc00')
-            elif bmi_norm == 1:
-                norm_label.configure(text='You are overweight!', bg='#e60000')
-        elif an_type == 'DOG':
-            bmi = DogBMI(weight, height)
-            calculated_bmi = str(round(bmi.get_bmi(), 2))
-            bmi_label.configure(text=calculated_bmi)
-        elif an_type == 'CAT':
-            bmi = CatBMI(weight, height)
-            calculated_bmi = str(round(bmi.get_bmi(), 2))
-            bmi_label.configure(text=calculated_bmi)
 
 bmi_ui = BmiUi()
 bmi_ui.run()
